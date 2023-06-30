@@ -10,5 +10,6 @@ namespace mli_microNetCore_StoredProcedure.Model
         public string Description { get; set; } 
         public int Price { get; set; }
         public DateTime newDate { get; init; }
+        public string SKU{ get; init; }
     }
 }

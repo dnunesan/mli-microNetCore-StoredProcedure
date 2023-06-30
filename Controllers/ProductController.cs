@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using mli_microNetCore_StoredProcedure.DTO;
 using mli_microNetCore_StoredProcedure.Model;
 using mli_microNetCore_StoredProcedure.Repo;
 using System.Collections;
@@ -11,24 +12,30 @@ namespace mli_microNetCore_StoredProcedure.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly memoryProduct Repo;
+        private readonly ImemoryProduct Repo;
 
-        public ProductController()
+        public ProductController(ImemoryProduct r)
         {
-            this.Repo = new memoryProduct();
+            this.Repo = r;
         }
         [HttpGet]
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<ProductDTO> GetProducts()
         {
             var listProducts = Repo.getAllProducts();
-            return listProducts;
+            var products = new List<ProductDTO>();
+            foreach (var item in listProducts)
+            {
+                var product = item.modelToDto(); 
+                products.Add(product);
+            }
+            return products;
         }
 
         [HttpGet]
-        [Route("{id:int}")]
-        public ActionResult<Product> GetProduct (int Id)
+        [Route("SKU")]
+        public ActionResult<ProductDTO> GetProduct (string sku)
         {
-            var product = Repo.getProduct(Id);
+            var product = Repo.getProduct(sku).modelToDto();
             if (product is null)
             {
                 return NotFound();

@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace mli_microNetCore_StoredProcedure.Repo
 {
-    public class memoryProduct
+    public class memoryProduct: ImemoryProduct
     {
         private readonly List<Product> products = new()
         {
-            new Product {Id = 1,Name="Teclado",Description="Teclado membrana",Price=25,newDate=DateTime.Now},
-            new Product {Id = 2,Name="Teclado gamer",Description="Teclado meacanico",Price=75,newDate=DateTime.Now},
-            new Product {Id = 3,Name="Teclado ergonomico",Description="Teclado membrana",Price=175,newDate=DateTime.Now},
-            new Product {Id = 4,Name="Teclado TKL",Description="Teclado mecanivo",Price=105,newDate=DateTime.Now}
+            new Product {Id = 1,Name="Teclado",Description="Teclado membrana",Price=25,newDate=DateTime.Now, SKU = "AA-001"},
+            new Product {Id = 2,Name="Teclado gamer",Description="Teclado meacanico",Price=75,newDate=DateTime.Now,SKU="AA-002"},
+            new Product {Id = 3,Name="Teclado ergonomico",Description="Teclado membrana",Price=175,newDate=DateTime.Now,SKU="AA-003"},
+            new Product {Id = 4,Name="Teclado TKL",Description="Teclado mecanico",Price=105,newDate=DateTime.Now,SKU="AA-004"}
         };
 
         public IEnumerable<Product> getAllProducts() 
@@ -20,9 +20,9 @@ namespace mli_microNetCore_StoredProcedure.Repo
             return products; 
         }
         
-        public Product getProduct (int Id)
+        public Product getProduct (string sku)
         {
-            return products.Where(p=>p.Id==Id).SingleOrDefault();
+            return products.Where(p=>p.SKU==sku).SingleOrDefault();
         }
 
         }
