@@ -7,5 +7,8 @@ namespace mli_microNetCore_StoredProcedure.Repo
     {
         public IEnumerable<Product> getAllProducts();
         public Product getProduct(string sku);
+        void createProduct(Product p);
+        void updateProduct(Product p);
+        void deleteProduct(Product p);
     }
 }

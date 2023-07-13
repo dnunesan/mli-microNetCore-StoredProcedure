@@ -15,6 +15,7 @@ namespace mli_microNetCore_StoredProcedure.Repo
             new Product {Id = 4,Name="Teclado TKL",Description="Teclado mecanico",Price=105,newDate=DateTime.Now,SKU="AA-004"}
         };
 
+
         public IEnumerable<Product> getAllProducts() 
         { 
             return products; 
@@ -24,6 +25,23 @@ namespace mli_microNetCore_StoredProcedure.Repo
         {
             return products.Where(p=>p.SKU==sku).SingleOrDefault();
         }
-
+        public void createProduct(Product p)
+        {
+            products.Add(p);
         }
+
+        public void updateProduct(Product p)
+        {
+            int a = products.FindIndex(ifExixsts=> ifExixsts.Id==p.Id);
+
+            products[a]=p;
+        }
+
+        public void deleteProduct(Product p)
+        {
+            Product productToRemove = getProduct(p.SKU);
+            
+            products.Remove(productToRemove);
+        }
+    }
 }
