@@ -1,4 +1,5 @@
-﻿using mli_microNetCore_StoredProcedure.DTO;
+﻿using Microsoft.AspNetCore.Mvc;
+using mli_microNetCore_StoredProcedure.DTO;
 using mli_microNetCore_StoredProcedure.Model;
 
 namespace mli_microNetCore_StoredProcedure
@@ -17,6 +18,19 @@ namespace mli_microNetCore_StoredProcedure
                     SKU = P.SKU,
                 };
             }else { return null; }  
+        }
+
+        public static UserDTO modelToDto(this UserApi u)
+        {
+            if (u != null)
+            {
+                return new UserDTO()
+                {
+                    User = u.User,  
+                    Token = u.Token
+                };
+            }
+            else { return null; }
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using mli_microNetCore_StoredProcedure.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace mli_microNetCore_StoredProcedure.Repo
 {
-    public class memoryProduct: ImemoryProduct
+    public class memoryProduct
     {
         private readonly List<Product> products = new()
         {
@@ -43,5 +44,12 @@ namespace mli_microNetCore_StoredProcedure.Repo
             
             products.Remove(productToRemove);
         }
+
+        //using (var connection = new SqlConnection(connectionString, Product P))
+        // dapper
+        //{
+        //        // Execute the stored procedure using Dapper
+        //        var results = connection.Query<ResultEntityType>("Mi sp", param: new { ParameterName = value }, commandType: CommandType.StoredProcedure).ToList();
+        //}
     }
 }

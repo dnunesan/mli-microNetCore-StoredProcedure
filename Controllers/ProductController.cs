@@ -51,16 +51,15 @@ namespace mli_microNetCore_StoredProcedure.Controllers
         {
             Product p = new Product()
             {
-                Id = Repo.getAllProducts().Max(x => x.Id) + 1,
                 Name = productDTO.Name,
                 Description = productDTO.Description,
                 Price = productDTO.Price,
-                SKU = productDTO.SKU,
-                newDate = DateTime.Now,
+                SKU = productDTO.SKU,                
             };   
             Repo.createProduct(p);
             return p.modelToDto();
         }
+
         [HttpPut] 
         public ActionResult<ProductDTO> updateProduct(string sku, UpdateProductDTO updateProduct) 
         {
@@ -73,10 +72,11 @@ namespace mli_microNetCore_StoredProcedure.Controllers
             existProduct.Description = updateProduct.Description;   
             existProduct.Price = updateProduct.Price;
 
+            Repo.updateProduct(existProduct);
             return existProduct.modelToDto();
         }
         [HttpDelete]
-        public ActionResult<ProductDTO> deleteProduct(string sku)
+        public ActionResult deleteProduct(string sku)
         {
             Product product = Repo.getProduct(sku);
             if (product is null)
@@ -86,7 +86,7 @@ namespace mli_microNetCore_StoredProcedure.Controllers
             else
             {
                 Repo.deleteProduct(product);    
-                return product.modelToDto();
+                return NoContent();
             }
         }
 
